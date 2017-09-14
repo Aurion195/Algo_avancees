@@ -3,6 +3,8 @@
 
 class maillon
 {	
+	friend class liste ;
+	
 	public :
 		int val ;
 		maillon * pred ;

@@ -1,6 +1,8 @@
 #ifndef DEF_LISTE_H
 #define DEF_LISTE_H
 
+#include "Maillon.h"
+
 class Liste
 {
 	maillon * tete ;

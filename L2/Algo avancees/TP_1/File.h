@@ -10,7 +10,13 @@ class file
 
 	public :
 		file() ;
+		file(int N) ;
 		~file() ;
+		bool vide() ;
+		bool pleine() ;
+		void enfiler(int x) ;
+		void defiler() ;
+		void afficher_file() ;
 } ;
 
 #endif 
