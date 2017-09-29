@@ -31,7 +31,7 @@ pile::~pile()
 
 bool pile::vide()
 {
-	if(debut == 0) return true ;
+	if(debut == -1) return true ;
 	return false ;
 }
 
@@ -46,7 +46,7 @@ void pile::empiler(int x)
 
 	if(!pleine())
 	{
-		debut += 1 ;
+		debut++ ;
 		tab[debut] = x ;
 	}
 	else
@@ -56,23 +56,33 @@ void pile::empiler(int x)
 
 }
 
-void pile::depiler()
+int pile::depiler()
 {
 	if(vide())
 	{
 		cout << "La pile est vide ! " << endl ;
-		return ;
 	}
 	else
 	{
+		int x = 0 ;
+		x = tab[debut] ;
 		debut -= 1 ;
+
+		return x ;
 	}
 }
 
 void pile::afficher_pile()
 {
-	for(int i = 0 ; i <= debut ; i++)
+	if(vide() == false)
 	{
-		cout << i << "	|	" << tab[i] << endl ;
+		for(int i = debut ; i >= 0 ; i--)
+		{
+			cout << i << "	|	" << tab[i] << endl ;
+		}
+	}
+	else
+	{
+		cout << "La pile est vide, il n'y a rien à afficher ! " << endl ;
 	}
 }

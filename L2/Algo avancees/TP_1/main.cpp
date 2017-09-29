@@ -11,7 +11,7 @@ int main()
 {
 	//-----------------------------------------------	Liste de Maillon
 
-	Liste L ;
+	/*Liste L ;
 
 	L.InsertionT(5) ;
 	L.InsertionT(8) ;
@@ -27,9 +27,9 @@ int main()
 	cout << "\n" << "\n" << "Liste après modification ! " << endl ;
 	L.afficher() ;
 
-	//system("clear") ;
+	//system("clear") ;*/
 
-	/*
+	
 	//-----------------------------------------------	Pile
 
 	pile P(10) ;
@@ -39,20 +39,22 @@ int main()
 	P.empiler(15) ;
 
 	cout << "Pile avant modification ! " << endl ;
+
 	P.afficher_pile() ;
 
-	P.depiler() ;
-	P.depiler() ;
+	int a = P.depiler() ;
+	int b = P.depiler() ;
+	
 	P.empiler(50) ;
 
-	cout << "\n" << "\n" << "Pile après modification ! " << endl ;
+	cout << "\n" << "Pile après modification ! " << endl ;
 	P.afficher_pile() ;
 
 	system("clear") ;
-
+	
 	//----------------------------------------------	File
 
-	file F(5) ;
+	/*file F(5) ;
 
 	F.enfiler(1) ; 
 	F.enfiler(2) ; 

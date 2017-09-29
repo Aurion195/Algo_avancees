@@ -14,7 +14,7 @@ class pile
 		bool vide() ;
 		bool pleine() ;
 		void empiler(int x) ;
-		void depiler() ;
+		int depiler() ;
 		void afficher_pile() ;
 } ;
 

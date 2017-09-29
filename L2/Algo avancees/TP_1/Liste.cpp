@@ -9,10 +9,8 @@ using namespace std ;
 
 /*maillon::~maillon()
 {
-	if(succ)
-	{
-		delete(succ)  ;
-	}
+	delete  succ ;
+	delete  pred ;
 }*/
 
 
@@ -90,18 +88,25 @@ void Liste::InsertionQ(int x)
 
 void Liste::supprime(maillon * tmp)
 {
-	if(tmp->pred == NULL)
+	if(tmp != 0)
 	{
-		tete = tmp->succ ;
+		if(tmp->pred == NULL)
+		{
+			tete = tmp->succ ;
+		}
+		else
+		{
+			(tmp->pred)->succ = tmp->succ ;
+		}
+
+		if(tmp->succ != NULL)
+		{
+			(tmp->succ)->pred = tmp->pred ;
+		}
 	}
 	else
 	{
-		(tmp->pred)->succ = tmp->succ ;
-	}
-
-	if(tmp->succ != NULL)
-	{
-		(tmp->succ)->pred = tmp->pred ;
+		return ;
 	}
 }
 
@@ -128,5 +133,9 @@ maillon *  Liste::recherche(int x)
 		if(tmp->val == x) return tmp ;
 		tmp = tmp->succ ;
 	}
+
+	tmp = 0 ;
+
+	return tmp ;
 
 }

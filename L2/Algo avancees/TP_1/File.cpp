@@ -17,7 +17,7 @@ file::file()
 
 file::file(int N)
 {	
-	cout << "Une file de " << max << " places vient d'être créer ! rgujrgrhgu" << endl ;
+	cout << "Une file de " << max << " places vient d'être créer !" << endl ;
 	max = N ;
 	debut = queu = 0 ;
 
@@ -25,7 +25,8 @@ file::file(int N)
 }
 
 file::~file()
-{
+{	
+	cout << "Le destructeur de fil est passé ! " << endl ;
 	delete [] tab ;
 }
 
@@ -49,7 +50,7 @@ void file::enfiler(int x)
 
 		queu++ ;
 	}
-	else cout << "Pile pleine !!" << endl ;
+	else cout << "File pleine !!" << endl ;
 }
 
 void file::defiler()
