@@ -58,7 +58,7 @@ void arbre::ajouter(int x, noeud * r)
                 }
                 else
                 {
-                        return ajouter(x, r->fd);
+					return ajouter(x, r->fd);
                 }
         }
         else
@@ -127,28 +127,66 @@ void arbre::supprimer(int x)
 	noeud * r = root ;
 	if(r == NULL) cout << "L'arbre est vide." << endl ;
 	noeud * tmp = trouve(x,r) ;
-	deplacer(tmp,r) ;
+	cout << tmp << endl ;
+	del(tmp, r) ;
 }
 
-void arbre::deplacer(noeud * u, noeud * r)		//u est le noeud contenant la valeur, r est la racine
+void arbre::del(noeud * r, noeud * x)
 {
-	if(r == NULL) return ;
-
-	if(r->fg == u)
+	if(x->fg = NULL)
 	{
-		r->fd = u->fd ; 
-		r->fg = u->fg ;
-
-		delete [] u ;
+		cout << "a" << endl ;
+		deplacer(r, x, x->fd) ;
 	}
-	
-	if(r->fd == u)
+	else
 	{
-		r->fd = u->fd ;
-		r->fg = u->fg ;
-		delete [] u ;
+		cout << "b" << endl ;
+		if(x->fd = NULL)
+		{
+			cout << "c" << endl ;
+			//deplacer(r,x,x->fg) ;
+		}
+		else
+		{
+			cout << "d" << endl ;
+			//noeud * y = successeur(x) ;
+
+			//if(y->pere != x)
+			//{
+				cout << "f" << endl ;
+				//deplacer(r, y, y->fd) ;
+
+				//y->fd = x->fd ;
+				//y->fd->pere = y ;
+			//}
+
+			//deplacer(r, x, y) ;
+			//y->fg = x->fg ;
+			//y->fg->pere = y ;
+		}
+	}
+}
+
+void arbre::deplacer(noeud * r, noeud * u, noeud * v)		//u est le noeud contenant la valeur, r est la racine
+{
+	if(u->pere == NULL)
+	{
+		r = v ;
+	}
+	else
+	{
+		if(u = (u->pere)->fg)
+		{
+			(u->pere)->fg = v ;
+		}
+		else
+		{
+			(u->pere)->fd = v ;
+		}
 	}
 
-	if(u->cle > r->cle) deplacer(u,r->fd) ;
-	else deplacer(u,r->fg) ;
+	if(v != NULL)
+	{
+		v->pere = u->pere ;
+	}
 }

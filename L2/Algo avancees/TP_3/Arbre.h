@@ -27,16 +27,17 @@ class arbre
 		int hauteur() ;
 		int haut(noeud * r) ;
 		void supprimer(int x) ;
-		void deplacer(noeud * r, noeud * u) ;
+		void del(noeud * r, noeud * x) ;
+		void deplacer(noeud * r, noeud * u, noeud * y) ;
 
 	//Fonction de la structure noeud
 		void Maximum() ;
 		void Minimum() ;
 
-		noeud * Maxi() ;
+		noeud * Maxi(noeud * tmp) ;
 		noeud * Mini(noeud * tmp) ;
-		noeud * successeur(int x) ;
-		noeud * predecesseur(int x) ;
+		noeud * successeur(noeud * x) ;
+		noeud * predecesseur(noeud * x) ;
 		noeud * trouve(int x, noeud * r) ;
 } ;
 

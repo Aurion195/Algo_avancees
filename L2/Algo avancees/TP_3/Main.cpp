@@ -12,10 +12,10 @@ int main()
 
 	A.Insertion(5) ;
 	A.Insertion(10) ;
-	A.Insertion(15) ;
 	A.Insertion(4) ;
-	A.Insertion(3) ;
-	//A.supprimer(3) ;
+	A.Insertion(15) ;
+	
+	A.supprimer(15) ;
 
 	A.afficher() ;
 

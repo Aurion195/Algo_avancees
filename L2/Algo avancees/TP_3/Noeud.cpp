@@ -47,7 +47,7 @@ void arbre::Maximum()
 }
 
 //Retourne le successeur et le prédécesseur d'un noeud
-noeud * arbre::Maxi()
+noeud * arbre::Maxi(noeud * tmp)
 {
 	noeud * r = root ;
 
@@ -71,14 +71,16 @@ noeud * arbre::Mini(noeud * tmp)
 	return r ;
 }
 
-noeud * arbre::successeur(int x)
-{
-	noeud * tmp = trouve(x,root) ;
-	noeud * tmp_bis ;
 
-	if(tmp && tmp->fd) ;
+noeud * arbre::successeur(noeud * x)
+{
+	noeud * tmp = x ;
+	noeud * tmp_bis = NULL ;
+
+	if(tmp && tmp->fd)
 	{
-		return Mini(tmp->fd) ;
+		noeud * z = Mini(tmp->fd) ;
+		return z ;
 	}
 	else
 	{
@@ -91,38 +93,36 @@ noeud * arbre::successeur(int x)
 				tmp_bis = tmp_bis->pere ;
 			}
 		}
+
 		return tmp_bis ;
 	}
 }
 
 
-noeud * arbre::predecesseur(int x)
+noeud * arbre::predecesseur(noeud  * x)
 {
-	noeud * tmp = Maxi() ;
-	noeud * r = root ;
+	noeud * tmp = x ;
+	noeud * tmp_bis ;
 
-	while(r != NULL)
+	if(tmp && tmp->fg)
 	{
-		if(r->cle >= x)
+		return Maxi(tmp->fg) ;
+	}
+	else
+	{
+		if(tmp)
 		{
-			if(r->fd == tmp)
+			tmp_bis = tmp->pere ;
+			while((tmp_bis) && (tmp == tmp_bis->fg))
 			{
-				return r ;
+				tmp = tmp_bis ;
+				tmp_bis = tmp_bis->pere ;
 			}
-
-			r = r->fd ;
 		}
-		else
-		{
-			if(r->fg == tmp)
-			{
-				return r ;
-			}
-
-			r = r->fg ;
-		}
+		return tmp_bis ;
 	}
 }
+
 
 //Permet de renvoyer l'adresse du neoud
 noeud * arbre::trouve(int x, noeud * r)
@@ -134,6 +134,4 @@ noeud * arbre::trouve(int x, noeud * r)
 		if(x > r->cle) trouve(x, r->fd) ;
 		else trouve(x, r->fg) ;
 	}
-
-	return NULL ;
 }
