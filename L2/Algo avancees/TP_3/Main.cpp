@@ -16,9 +16,11 @@ int main()
 	A.Insertion(2) ;
 	A.Insertion(3) ;
 	A.Insertion(15) ;
-	A.Insertion(14) ;
 	A.Insertion(13) ;
+	A.Insertion(14) ;
 	A.Insertion(20) ;
+	A.Insertion(23) ;
+	A.Insertion(19) ;
 	
 	
 	A.supprimer(5) ;

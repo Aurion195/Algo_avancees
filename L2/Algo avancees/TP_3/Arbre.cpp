@@ -155,7 +155,7 @@ void arbre::del(noeud * r, noeud * x)
 	}
 	else		//3eme cas, le noeud a deux fils
 	{
-		noeud * tmp = predecesseur(x) ;				//On trouve son prédecesseur
+		noeud * tmp = successeur(x) ;				//On trouve son prédecesseur
 		cout << "Le successeur de " << x->cle << " est  : " << tmp->cle << endl ;
 
 		if(tmp->pere != x)							//Si le noeud predecesseur n'est pas son fils direct
@@ -163,13 +163,13 @@ void arbre::del(noeud * r, noeud * x)
 			deplacer(r,tmp,tmp->fd) ;				//On déplace le sous arbres dans la racine
 			tmp->fd = x->fd ;						//On fais le lien
 			tmp->fd->pere = tmp ;
+			if(root == x) root = tmp ;
 		}
-		else
-		{
-			deplacer(r, x, tmp) ;
-			tmp->fd = x->fd ;
-			tmp->fd->pere = tmp ;
-		}
+		
+		deplacer(r, x, tmp) ;
+		tmp->fg = x->fg ;
+		tmp->fg->pere = tmp ;
+		if(root == x) root = tmp ;
 	}
 
 	delete [] x ;
@@ -183,13 +183,13 @@ void arbre::deplacer(noeud * r, noeud * u, noeud * v)		//u est le noeud contenan
 	}
 	else
 	{
-		if(u == u->pere->fg)
+		if(u == u->pere->fd)
 		{
-			u->pere->fg = v ;
+			u->pere->fd = v ;
 		}
 		else
 		{
-			u->pere->fd = v ;
+			u->pere->fg = v ;
 		}
 	}
 
