@@ -13,9 +13,15 @@ int main()
 	A.Insertion(5) ;
 	A.Insertion(10) ;
 	A.Insertion(4) ;
+	A.Insertion(2) ;
+	A.Insertion(3) ;
 	A.Insertion(15) ;
+	A.Insertion(14) ;
+	A.Insertion(13) ;
+	A.Insertion(20) ;
 	
-	A.supprimer(15) ;
+	
+	A.supprimer(5) ;
 
 	A.afficher() ;
 
@@ -26,6 +32,7 @@ int main()
 
 	int x = A.hauteur() ;
 	cout << "La hauteur de l'arbre est " << x << endl ;
+
 
 	return 0 ;
 }

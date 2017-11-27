@@ -45,12 +45,12 @@ void arbre::Insertion(int x)
 	}
 }
 
-void arbre::ajouter(int x, noeud * r)
+void arbre::ajouter(int x, noeud * r)							//Ajouter un noeud dans une feuille de l'arbre
 {
 	if(r->cle == x) return ;
 	else
 	{
-		if(r->cle < x)
+		if(r->cle < x)											//Si la valeur est plus petite on dans le fd
         {
                 if(r->fd == NULL)
                 {
@@ -61,7 +61,7 @@ void arbre::ajouter(int x, noeud * r)
 					return ajouter(x, r->fd);
                 }
         }
-        else
+        else													//Sinon on va dans le fg
         {
                 if(r->fg == NULL)
                 {        
@@ -80,7 +80,7 @@ void arbre::afficher()
     if(root) print(root);
 }
 
-void arbre::print(noeud * r)
+void arbre::print(noeud * r)						//Affichage récursif et croissant
 {
 	if(r)
 	{
@@ -90,7 +90,7 @@ void arbre::print(noeud * r)
 	}
 }
 
-bool arbre::recherche(int x)
+bool arbre::recherche(int x)						//renvoi vrai ou faux si la valeur est contenu dans l'arbre
 {
 	noeud * r = root ;
 
@@ -110,7 +110,7 @@ int arbre::hauteur()
 	haut(root) ;
 }
 
-int arbre::haut(noeud * n)
+int arbre::haut(noeud * n)						//Renvoi la hauteur d'un arbre
 {
 	int V1,V2 = 0 ;
 	if(n == NULL) return 0 ;
@@ -124,47 +124,55 @@ int arbre::haut(noeud * n)
 
 void arbre::supprimer(int x)
 {
-	noeud * r = root ;
-	if(r == NULL) cout << "L'arbre est vide." << endl ;
-	noeud * tmp = trouve(x,r) ;
-	cout << tmp << endl ;
-	del(tmp, r) ;
+	if(root == NULL) cout << "L'arbre est vide." << endl ;
+	noeud * tmp = trouve(x,root) ;						//On trouve le noeud dans l'arbre
+	del(root, tmp) ;
 }
 
 void arbre::del(noeud * r, noeud * x)
 {
-	if(x->fg = NULL)
+	if(x->fg == NULL && x->fd == NULL)					//1er cas, le noeud est une feuille
 	{
-		cout << "a" << endl ;
-		deplacer(r, x, x->fd) ;
-	}
-	else
-	{
-		cout << "b" << endl ;
-		if(x->fd = NULL)
+		if(x->pere->fg != NULL && x->pere->fg == x )
 		{
-			cout << "c" << endl ;
-			//deplacer(r,x,x->fg) ;
+			x->pere->fg = NULL ;
 		}
 		else
 		{
-			cout << "d" << endl ;
-			//noeud * y = successeur(x) ;
-
-			//if(y->pere != x)
-			//{
-				cout << "f" << endl ;
-				//deplacer(r, y, y->fd) ;
-
-				//y->fd = x->fd ;
-				//y->fd->pere = y ;
-			//}
-
-			//deplacer(r, x, y) ;
-			//y->fg = x->fg ;
-			//y->fg->pere = y ;
+			x->pere->fd = NULL ;
 		}
 	}
+	else if((x->fg != NULL && x->fd == NULL) || (x->fd != NULL && x->fg == NULL))	//2eme cas, le neoud est une suite de fils droit ou gauche
+	{
+		if(x->fg != NULL)
+		{
+			x->pere->fg = x->fg ;
+		}
+		else
+		{
+			x->pere->fd = x->fd ;
+		}
+	}
+	else		//3eme cas, le noeud a deux fils
+	{
+		noeud * tmp = predecesseur(x) ;				//On trouve son prédecesseur
+		cout << "Le successeur de " << x->cle << " est  : " << tmp->cle << endl ;
+
+		if(tmp->pere != x)							//Si le noeud predecesseur n'est pas son fils direct
+		{
+			deplacer(r,tmp,tmp->fd) ;				//On déplace le sous arbres dans la racine
+			tmp->fd = x->fd ;						//On fais le lien
+			tmp->fd->pere = tmp ;
+		}
+		else
+		{
+			deplacer(r, x, tmp) ;
+			tmp->fd = x->fd ;
+			tmp->fd->pere = tmp ;
+		}
+	}
+
+	delete [] x ;
 }
 
 void arbre::deplacer(noeud * r, noeud * u, noeud * v)		//u est le noeud contenant la valeur, r est la racine
@@ -175,13 +183,13 @@ void arbre::deplacer(noeud * r, noeud * u, noeud * v)		//u est le noeud contenan
 	}
 	else
 	{
-		if(u = (u->pere)->fg)
+		if(u == u->pere->fg)
 		{
-			(u->pere)->fg = v ;
+			u->pere->fg = v ;
 		}
 		else
 		{
-			(u->pere)->fd = v ;
+			u->pere->fd = v ;
 		}
 	}
 

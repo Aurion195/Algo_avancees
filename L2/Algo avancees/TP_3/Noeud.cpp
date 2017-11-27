@@ -9,7 +9,7 @@ using namespace std ;
 //-------------------Fonction de la structure noeud ----------------------------------------------
 //------------------------------------------------------------------------------------------------
 
-noeud * NN(int x, noeud * r)
+noeud * NN(int x, noeud * r)	 				//Permet de créer un noeud facilement
 {
 	noeud * tmp = new noeud ;
 
@@ -47,11 +47,9 @@ void arbre::Maximum()
 }
 
 //Retourne le successeur et le prédécesseur d'un noeud
-noeud * arbre::Maxi(noeud * tmp)
+noeud * arbre::Maxi(noeud * r)
 {
-	noeud * r = root ;
-
-	while(r->fd != NULL)
+	while(r && r->fd)
 	{
 		r = r->fd ;
 	}
@@ -59,10 +57,8 @@ noeud * arbre::Maxi(noeud * tmp)
 	return r ;
 }
 
-noeud * arbre::Mini(noeud * tmp)
+noeud * arbre::Mini(noeud * r)
 {
-	noeud * r = tmp ;
-
 	while(r->fg != NULL)
 	{
 		r = r->fg ;
@@ -74,28 +70,20 @@ noeud * arbre::Mini(noeud * tmp)
 
 noeud * arbre::successeur(noeud * x)
 {
-	noeud * tmp = x ;
-	noeud * tmp_bis = NULL ;
-
-	if(tmp && tmp->fd)
-	{
-		noeud * z = Mini(tmp->fd) ;
-		return z ;
+	if(x->fd != NULL)
+	{				
+		return Mini(x->fd) ;
 	}
-	else
-	{
-		if(tmp)
-		{
-			tmp_bis = tmp->pere ;
-			while((tmp_bis) && (tmp == tmp_bis->fd))
-			{
-				tmp = tmp_bis ;
-				tmp_bis = tmp_bis->pere ;
-			}
-		}
 
-		return tmp_bis ;
+	noeud * y = x->pere ;
+
+	while(y != NULL && x == y->fd)
+	{
+		x = y ;
+		y = y->pere ;
 	}
+
+	return y ;
 }
 
 
