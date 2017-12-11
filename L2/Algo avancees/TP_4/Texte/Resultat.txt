@@ -1,0 +1,45 @@
+Voici le Tableau  d'entier non trier
+36 / 13 / 18 / 39 / 
+
+
+Tri bulle
+13 / 18 / 36 / 39 / 
+Le temps d'éxecution du Tri bulle est de 0.001034
+
+---------------------------------------------------------------------------------
+Voici le Tableau  d'entier non trier
+36 / 13 / 18 / 39 / 
+
+
+Tri insertion
+13 / 18 / 36 / 39 / 
+Le temps d'éxecution du Tri insertion est de 0.001053
+
+---------------------------------------------------------------------------------
+Voici le Tableau  d'entier non trier
+36 / 13 / 18 / 39 / 
+
+
+Tri fusion
+13 / 18 / 36 / 39 / 
+Le temps d'éxecution du Tri fusion est de 0.001062
+
+---------------------------------------------------------------------------------
+Voici le Tableau  d'entier non trier
+36 / 13 / 18 / 39 / 
+
+
+Tri rapide
+13 / 18 / 36 / 39 / 
+Le temps d'éxecution du Tri rapide est de 0.001072
+
+---------------------------------------------------------------------------------
+Voici le Tableau  d'entier non trier
+36 / 13 / 18 / 39 / 
+
+
+Tris tas
+0 / 13 / 18 / 39 / 
+Le temps d'éxecution du Tri tas est de 0.001081
+
+---------------------------------------------------------------------------------

@@ -1,115 +1,201 @@
 #include <iostream>
+#include <cmath>
+#include <cstdlib>
+#include <ctime>
 
 using namespace std ;
+
+const int taille = 4 ;
+const int a = 0 ;
+const int b = taille - 1 ;
+
+int * RamdomArray(int taille)
+{
+	srand(time(NULL)) ;
+
+	int * T = new int[taille] ;
+	for(int i =0 ; i < taille ; i++)
+	{
+		int x = 0 ;
+		x = rand()%50 + 1 ;
+		T[i] = x ;
+	}
+
+	return T ;
+}
+
 
 void afficher(int * T, int taille)
 {
 	for(int i = 0 ; i < taille ; i++)
 	{
-		cout << T[i] << "	" << endl ;
+		cout << T[i] << " / " ;
 	}
 }
 
-void Tri_bulle(int * T, int taille)
+void Tri_bulle(int * T, int taille, double& x1)
 {
+	clock_t temps ;
+
 	for(int i = 0 ; i < taille-1 ; i++)
 	{
-		for(int j = taille ; j > i-1 ; j--)
+		for(int j = taille-1 ; j > i ; j--)
 		{
 			if(T[j] < T[j-1])
 			{
 				swap(T[j-1], T[j]);							//Permet de faire comme les lignes précédentes
-				/*int tmp = T[j] ;
-				T[j]= T[j-1] ;
-				T[j-1] = tmp ;*/
 			}
 		}
 	}
+
+	temps = clock() ;
+	x1 = (double)temps/CLOCKS_PER_SEC ;
 }
 
 
-void Tri_insertion(int * T, int taille)
+void Tri_insertion(int * T, int taille, double& x2)
 {
+	clock_t temps ;
 	if(taille > 0) 
 	{
-		Tri_insertion(T, taille-1) ;
+		Tri_insertion(T, taille-1, x2) ;
 		int k = taille ;
-		while((k > 1) && (T[k-1] > T[k]))
+		while((k > 0) && (T[k-1] > T[k]))
 		{
 			swap(T[k-1], T[k]);
 			k-- ;
 		}
 	}
+	temps = clock() ;
+	x2 = (double)temps/CLOCKS_PER_SEC ;
 }
 
-int * Fusion(int * T, int a, int b, int m, int taille)
-{
-	int * R = new int[taille] ;
-	int i = 0 ;
-	int j = m+1 ;
-	int k = 0 ;
+void Tri_fusion(int * t, int n, double& x3)
+{ 
+	clock_t temps ;
+	int tmp = 0 ; 
 
-	for(int a = i ; a < j ; a++)
+	/* le tri de la premiere partie du tableau*/
+	for(int i = 0 ; i < (n-1)/2 ; i++)
+  	{
+  		for(int j= (i+1) ; j <= (n-1)/2 ; j++)
+     	{
+     		if(t[i] >= t[j])
+       		{
+       			swap(t[i],t[j]) ;
+       		}    
+     	}
+  	}
+  
+	/*le tri d la deuxieme partie du tableau*/
+ 	for(int i = ((n-1)/2)+1 ; i < n-1 ; i++)
+  	{
+  		for(int j = (i+1) ; j < n; j++)
+	    {
+	    	if(t[i] >= t[j])
+     		{ 
+     			swap(t[i],t[j]) ;  
+     		}
+    	}
+  	}
+
+	for(int i = 0 ; i < n-1 ; i++)
 	{
-		cout << T[a] << endl ;
-	}
-
-	cout << endl ;
-
-	for(int b = j ; b < taille ; b++)
-	{
-		cout << T[b] << endl ;
-	}
-
-	/*while(k <= taille && (i < m || j < taille))
-	{
-		if(i <= m && T[i] < T[j])
+		for(int j = n-1 ; j > i ; j--)
 		{
-			R[k] = T[i] ;
-			i++ ;
+			if(t[j] < t[j-1])
+			{
+				swap(t[j-1], t[j]);							//Permet de faire comme les lignes précédentes
+			}
+		}
+	}
+
+	temps = clock() ;
+	x3 = (double)temps/CLOCKS_PER_SEC ;
+}
+
+int rapide(int* T,int deb,int fin)
+{
+	int k = T[deb];
+	int i = deb+1;
+	int j = fin;
+	
+	while (i <= j)
+	{
+		while (T[i] <= k)
+		{
+			i++;
+		}
+		while (T[j] > k)
+		{		
+			j--;
+		}
+		if (i < j)
+		{
+			swap(T[i++],T[j--]);
+		}	
+	}
+
+	if (T[j] < T[deb])
+	{
+		swap(T[deb],T[j]);
+	}
+
+	return j ;
+}
+
+void Tri_rapide(int * T, int deb, int fin, double& x4)
+{
+	clock_t temps ;
+	int tmp;
+	if (deb < fin) {
+		tmp= rapide(T,deb,fin);
+		Tri_rapide(T,deb,tmp-1,x4);
+		Tri_rapide(T,tmp+1,fin,x4);
+	}
+	temps = clock() ;
+	x4 = (double)temps/CLOCKS_PER_SEC ;
+}
+
+void tamiser(int * T, int i, int taille)
+{
+	int k = i ;
+	int j = 2*k ;
+
+	while(j < taille)
+	{
+		if(j < taille && T[j] < T[j+1])
+		{
+			j += 1 ;
+		}
+
+		if(T[k] < T[j])
+		{
+			swap(T[k], T[j]) ;
+			k = j ;
+			j = 2*k ;
 		}
 		else
 		{
-				R[k] = T[j] ;
-				j++ ;
-		}
-
-		k++ ;
-	}
-
-	if(i < m)
-	{
-		while(j <= taille)
-		{
-			R[k] = T[j] ;
-			j++ ;
-			k++ ;
+			j = taille + 1 ;
 		}
 	}
-	else
-	{
-		while(i <= m)
-		{
-			R[k] = T[i] ;
-			i++ ;
-			k++ ;
-		}
-	}*/
-
-	return R ;
 }
 
-int * Tri_fusion(int * T, int a, int b, int taille)
+void Tri_tas(int * T, int taille, double& x5)
 {
-	int * F = new int[taille] ;
-
-	if(a < b)
+	clock_t temps ;
+	for(int i = taille/2 ; i > 0 ; i--)
 	{
-		int m = (a + b) / 2 ;
-		Tri_fusion(T,a,m,taille) ;
-		Tri_fusion(T,m+1,b,taille) ;
-		F = Fusion(T,a,b,m,taille) ;
+		tamiser(T,i,taille) ;
 	}
-	return F ;
-}
 
+	for(int i = taille ; i > 0 ; i--)
+	{
+		swap(T[i],T[0]) ;
+		tamiser(T,0,i-1) ;
+	}
+
+	temps = clock() ;
+	x5 = (double)temps/CLOCKS_PER_SEC ;
+}
